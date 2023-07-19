@@ -36,9 +36,6 @@ function TopHeader() {
   const handleClose = () => {
     setAnchorEl(null);
   };
-
-
-
   return (
     <Box
       sx={{
