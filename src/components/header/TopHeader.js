@@ -100,7 +100,7 @@ function TopHeader() {
         <List
         component="nav"
         aria-label="Device settings"
-        sx={{ p: 0  , m : 0  }}
+        sx={{ p: 0  , m : 0 , }}
       >
         <ListItem
           id="lock-button"
@@ -111,10 +111,10 @@ function TopHeader() {
           sx={{"&:hover":{cursor:"pointer"} , px:1 }}
         >
           <ListItemText
-          sx={{".MuiListItemText-root":{fontSize:"11px "  } , color:"#fff" }}
+          sx={{".MuiListItemText-root":{fontSize:"11px " , color:"#fff"  } , }}
             secondary={options[selectedIndex]}
           />
-          <ExpandMore sx={{fontSize:"16px" , color:"#fff"}} />
+          <ExpandMore sx={{fontSize:"16px" , }} />
         </ListItem>
       </List>
 
@@ -130,7 +130,7 @@ function TopHeader() {
       >
         {options.map((option, index) => (
           <MenuItem
-          sx={{fontSize:"11px" , p:"3px 10px", minHeight:"10px"}}
+          sx={{fontSize:"11px" , p:"3px 10px", minHeight:"10px" , color:"#fff" }}
             key={option}
             selected={index === selectedIndex}
             onClick={(event) => handleMenuItemClick(event, index)}
