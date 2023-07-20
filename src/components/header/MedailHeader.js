@@ -1,5 +1,11 @@
-import { ShoppingCartOutlined } from "@mui/icons-material";
-import { Container, IconButton, Stack, Typography } from "@mui/material";
+import { ExpandMore, ShoppingCartOutlined } from "@mui/icons-material";
+import {
+  Container,
+  IconButton,
+  Stack,
+  Typography,
+  useThemeProps,
+} from "@mui/material";
 import SearchIcon from "@mui/icons-material/Search";
 import { styled, alpha } from "@mui/material/styles";
 import InputBase from "@mui/material/InputBase";
@@ -12,13 +18,16 @@ import ListItem from "@mui/material/ListItem";
 import ListItemText from "@mui/material/ListItemText";
 import MenuItem from "@mui/material/MenuItem";
 import Menu from "@mui/material/Menu";
+import { useTheme } from "@emotion/react";
 const Search = styled("div")(({ theme }) => ({
+  flexGrow: 0.4,
   position: "relative",
   borderRadius: theme.shape.borderRadius,
-  backgroundColor: alpha(theme.palette.common.white, 0.15),
+  border: "1px solid #777",
   "&:hover": {
     backgroundColor: alpha(theme.palette.common.white, 0.25),
   },
+  minWidth: "300px",
   marginRight: theme.spacing(2),
   marginLeft: 0,
   width: "100%",
@@ -36,6 +45,7 @@ const SearchIconWrapper = styled("div")(({ theme }) => ({
   display: "flex",
   alignItems: "center",
   justifyContent: "center",
+  color: "#777",
 }));
 
 const StyledInputBase = styled(InputBase)(({ theme }) => ({
@@ -61,12 +71,7 @@ const StyledBadge = styled(Badge)(({ theme }) => ({
   },
 }));
 
-const options = [
-  "Show some love to MUI",
-  "Show all notification content",
-  "Hide sensitive notification content",
-  "Hide all notification content",
-];
+const options = ["All Categories", "CRA", "Clothes", "Electronics"];
 
 function MedailHeader() {
   const [anchorEl, setAnchorEl] = useState(null);
@@ -85,6 +90,8 @@ function MedailHeader() {
     setAnchorEl(null);
   };
 
+  const theme = useTheme();
+
   return (
     <Container sx={{ my: 3, display: "flex", justifyContent: "space-between" }}>
       <Stack alignItems={"center"}>
@@ -92,7 +99,13 @@ function MedailHeader() {
         <Typography variant="body2">E-commerce </Typography>
       </Stack>
       <Stack>
-        <Search sx={{ borderRadius: "22px" ,display:"flex" }}>
+        <Search
+          sx={{
+            borderRadius: "22px",
+            display: "flex",
+            justifyContent: "space-between",
+          }}
+        >
           <SearchIconWrapper>
             <SearchIcon />
           </SearchIconWrapper>
@@ -104,10 +117,14 @@ function MedailHeader() {
             <List
               component="nav"
               aria-label="Device settings"
-              sx={{ bgcolor: "background.paper" }}
+              sx={{
+                bgcolor: theme.palette.myColor.main,
+                borderBottomRightRadius: 22,
+                borderTopRightRadius: 22,
+                p: "0",
+              }}
             >
               <ListItem
-                button
                 id="lock-button"
                 aria-haspopup="listbox"
                 aria-controls="lock-menu"
@@ -117,8 +134,9 @@ function MedailHeader() {
               >
                 <ListItemText
                   secondary={options[selectedIndex]}
-                  className="border"
+                  sx={{ width: "90px", textAlign: "center", cursor: "pointer" }}
                 />
+                <ExpandMore sx={{ fontSize: "16px" }} />
               </ListItem>
             </List>
             <Menu
@@ -133,6 +151,7 @@ function MedailHeader() {
             >
               {options.map((option, index) => (
                 <MenuItem
+                  sx={{ fontSize: "11px" }}
                   key={option}
                   selected={index === selectedIndex}
                   onClick={(event) => handleMenuItemClick(event, index)}
